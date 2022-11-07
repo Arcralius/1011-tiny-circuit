@@ -42,7 +42,7 @@ void buttonLoop() {
   display.setCursor(0, 54);
   if (display.getButtons(TSButtonLowerLeft)) {
     display.println("Pressed!");
-    command("Windows");
+    windows_command("Windows");
   } else {
     display.println("Windows");
   }
