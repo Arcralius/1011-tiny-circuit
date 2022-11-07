@@ -32,17 +32,14 @@ void buttonLoop() {
   //results are flipped as you would expect when setFlip(true)
   if (display.getButtons(TSButtonUpperLeft)) {
     display.println("Pressed!");
-    Keyboard.print("Overwatch 2");
-    Keyboard.press(E)
   } else {
-    display.println("Overwatch 2");
-    Keyboard.press(KEY_RETURN);
-    Keyboard.releaseAll();
+    display.println("          ");
   }
   display.setCursor(0, 54);
   if (display.getButtons(TSButtonLowerLeft)) {
     display.println("Pressed!");
     windows_command("Windows");
+    display.print("Completed!");
   } else {
     display.println("Windows");
   }
