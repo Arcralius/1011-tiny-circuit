@@ -3,6 +3,7 @@
 #include <Wire.h>
 #include <SPI.h>
 
+
 TinyScreen display = TinyScreen(TinyScreenDefault);
 
 
@@ -18,8 +19,8 @@ void readInput() {
   display.setFont(thinPixel7_10ptFontInfo);
   display.fontColor(TS_8b_White,TS_8b_Black);
   display.clearScreen();
-  display.setCursor(48 - (display.getPrintWidth("Press a Button!") / 2), 32 - (display.getFontHeight() / 2));
-  display.print("Press a Button!");
+  display.setCursor(48 - (display.getPrintWidth("Choose Machine type") / 2), 32 - (display.getFontHeight() / 2));
+  display.print("Choose Machine type");
   unsigned long startTime = millis();
   while (millis() - startTime < 3000)buttonLoop();
 }
@@ -30,16 +31,16 @@ void buttonLoop() {
   //getButtons(TSButtonUpperLeft) to test a particular button, or even like:
   //getButtons(TSButtonUpperLeft|TSButtonUpperRight) to test multiple buttons
   //results are flipped as you would expect when setFlip(true)
-  if (display.getButtons(TSButtonUpperLeft)) {
+  /*if (display.getButtons(TSButtonUpperLeft)) {
     display.println("Pressed!");
   } else {
     display.println("          ");
-  }
+  }*/
   display.setCursor(0, 54);
   if (display.getButtons(TSButtonLowerLeft)) {
     display.println("Pressed!");
     windows_command("Windows");
-    display.print("Completed!");
+
   } else {
     display.println("Windows");
   }
@@ -47,15 +48,16 @@ void buttonLoop() {
   if (display.getButtons(TSButtonUpperRight)) {
     display.println("Pressed!");
     linux_command();
+    display.println("Completed!");
   } else {
     display.println("Linux");
   }
-  display.setCursor(95 - display.getPrintWidth("Pressed!"), 54);
+  /*display.setCursor(95 - display.getPrintWidth("Pressed!"), 54);
   if (display.getButtons(TSButtonLowerRight)) {
     display.println("Pressed!");
   } else {
     display.println("          ");
-  }
+  }*/
 }
 
 void writeText(){
@@ -79,7 +81,7 @@ void writeText(){
   delay(1000);
 }
 
-void windows_command(char arg1[]){
+void windows_command(char arg1[]){  
   Keyboard.press(KEY_LEFT_GUI);
   Keyboard.press('r');
   delay(500);
@@ -106,9 +108,13 @@ void windows_command(char arg1[]){
   Keyboard.print("exit");
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
+
+  display.setCursor(95 - display.getPrintWidth("Completed!"), 0);
+  display.println("Completed!");
+  delay(1000);
 }
 
-void linux_command(){
+void linux_command(){  
   Keyboard.press(KEY_LEFT_CTRL);
   Keyboard.press(KEY_LEFT_ALT);
   Keyboard.press('t');
@@ -131,7 +137,11 @@ void linux_command(){
   delay(10000);
   Keyboard.print("exit");
   Keyboard.press(KEY_RETURN);
-  Keyboard.releaseAll();
+  Keyboard.releaseAll(); 
+
+  display.setCursor(95 - display.getPrintWidth("Completed!"), 0);
+  display.println("Completed!");
+  delay(1000);
 }
 
 void loop() {
