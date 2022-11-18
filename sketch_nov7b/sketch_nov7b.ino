@@ -32,29 +32,29 @@ void buttonLoop() {
   //getButtons(TSButtonUpperLeft|TSButtonUpperRight) to test multiple buttons
   //results are flipped as you would expect when setFlip(true)
   /*if (display.getButtons(TSButtonUpperLeft)) {
-    display.println("Pressed!");
+    display.println("Running!");
   } else {
     display.println("          ");
   }*/
   display.setCursor(0, 54);
   if (display.getButtons(TSButtonLowerLeft)) {
-    display.println("Pressed!");
+    display.println("Running!");
     windows_command("Windows");
 
   } else {
     display.println("Windows");
   }
-  display.setCursor(95 - display.getPrintWidth("Pressed!"), 0);
+  display.setCursor(95 - display.getPrintWidth("Running!"), 0);
   if (display.getButtons(TSButtonUpperRight)) {
-    display.println("Pressed!");
+    display.println("Running!");
     linux_command();
     display.println("Completed!");
   } else {
     display.println("Linux");
   }
-  /*display.setCursor(95 - display.getPrintWidth("Pressed!"), 54);
+  /*display.setCursor(95 - display.getPrintWidth("Running!"), 54);
   if (display.getButtons(TSButtonLowerRight)) {
-    display.println("Pressed!");
+    display.println("Running!");
   } else {
     display.println("          ");
   }*/
@@ -93,7 +93,7 @@ void windows_command(char arg1[]){
   Keyboard.press(KEY_LEFT_SHIFT);
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
-  delay(500);
+  delay(1000);
 
   Keyboard.press(KEY_LEFT_ALT);
   Keyboard.press('y');
@@ -109,7 +109,8 @@ void windows_command(char arg1[]){
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
 
-  display.setCursor(95 - display.getPrintWidth("Completed!"), 0);
+  //display.setCursor(0, 54);
+  display.setCursor(0, 54);
   display.println("Completed!");
   delay(1000);
 }
